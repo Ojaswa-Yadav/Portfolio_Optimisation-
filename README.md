@@ -65,3 +65,20 @@ project/
 ├── README.md                                   # Project documentation
 ├── requirements.txt                            # Python dependencies
 └── .gitignore                                  # Ignored files for Git
+
+
+## **Setup Instructions**
+
+### **1. Clone the Repository**
+```bash
+git clone https://github.com/Ojaswa-Yadav/Portfolio_Optimisation-.git
+cd Portfolio_Optimisation-
+
+pip install -r requirements.txt
+
+airflow db init
+
+airflow webserver
+
+airflow scheduler
+
