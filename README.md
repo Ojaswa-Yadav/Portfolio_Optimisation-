@@ -3,7 +3,7 @@
 ## **Overview**
 This project leverages **financial data**, **machine learning**, **sentiment analysis**, and the **Black-Litterman model** to optimize a stock portfolio. The workflow predicts stock performance, analyzes sentiment from news data, and calculates optimal portfolio weights while balancing risk and return.
 
-The project integrates with **Apache Airflow** to automate the entire pipeline, making it suitable for daily execution. Reports are generated and stored locally or uploaded to **Google Cloud Storage**.
+The project integrates with **Apache Airflow** to automate the entire pipeline, making it suitable for daily execution. Reports are generated and stored locally or uploaded to **Google Cloud Storage** for easy access.
 
 ---
 
@@ -31,26 +31,7 @@ The project integrates with **Apache Airflow** to automate the entire pipeline, 
 
 ---
 
-## **Project Workflow**
-
-### **1. Pipeline Steps**
-The Airflow DAG orchestrates the following tasks:
-1. **Fetch historical stock data** and calculate returns.
-2. **Train and predict future stock performance** using machine learning.
-3. **Perform sentiment analysis** on financial news headlines.
-4. **Optimize portfolio weights** using the Black-Litterman model.
-5. **Save reports locally** and upload them to Google Cloud Storage.
-
-### **2. Output**
-The pipeline generates the following reports:
-- **Portfolio Weights:** Optimal stock allocation (`weights_ML2_GBReg_df.csv`).
-- **Sharpe Ratio Summary:** Performance evaluation (`sharpe_summary_csv.csv`).
-- **Return Summary:** Portfolio returns statistics (`return_summary_csv.csv`).
-- **Weights History:** Historical allocation trends (`w_hist.csv`).
-
----
-
-## Installation
+## **Installation**
 
 You can set up the Portfolio Optimization project by running these commands:
 
@@ -61,26 +42,20 @@ pip install -r requirements.txt
 airflow db init
 airflow webserver
 airflow scheduler
----
+```
 
-## **Project Structure**
-
-```plaintext
+```bash
 project/
 ├── dags/
-│   └── airflow.py   # Main Airflow DAG
+│   └── airflow.py                           # Main Airflow DAG
 ├── modules/
-│   ├── data_and_ml.py                          # Data fetching and machine learning
-│   ├── sentiment_and_portfolio.py              # Sentiment analysis and portfolio optimization
-│   ├── utils.py                                # Utility functions
+│   ├── data_and_ml.py                       # Data fetching and machine learning
+│   ├── sentiment_and_portfolio.py           # Sentiment analysis and portfolio optimization
+│   ├── utils.py                             # Utility functions
 ├── config/
-│   └── parameters.py                           # Centralized parameters
-├── README.md                                   # Project documentation
-├── requirements.txt                            # Python dependencies
-└── .gitignore                                  # Ignored files for Git
-
-
-
-
-
+│   └── parameters.py                        # Centralized parameters
+├── README.md                                # Project documentation
+├── requirements.txt                         # Python dependencies
+└── .gitignore                               # Ignored files for Git
+```
 
