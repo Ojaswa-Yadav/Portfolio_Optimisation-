@@ -55,15 +55,13 @@ The pipeline generates the following reports:
 ```plaintext
 project/
 ├── dags/
-│   └── final_eecs6893_port_opt_airflow_v2.py   # Main Airflow DAG
+│   └── airflow.py   # Main Airflow DAG
 ├── modules/
 │   ├── data_and_ml.py                          # Data fetching and machine learning
 │   ├── sentiment_and_portfolio.py              # Sentiment analysis and portfolio optimization
 │   ├── utils.py                                # Utility functions
 ├── config/
 │   └── parameters.py                           # Centralized parameters
-├── reports/
-│   └── output_samples/                         # Sample output files
 ├── README.md                                   # Project documentation
 ├── requirements.txt                            # Python dependencies
 └── .gitignore                                  # Ignored files for Git
