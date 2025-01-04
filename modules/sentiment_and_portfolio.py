@@ -4,8 +4,93 @@ from datetime import date
 import pickle
 from modules.utils import categorise
 
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+import yfinance as yf
+
+import pypfopt
+
+from pypfopt import risk_models
+from pypfopt import plotting
+
+from pypfopt import EfficientFrontier
+
+from pypfopt import risk_models
+from pypfopt import plotting
+
+from pypfopt import black_litterman, risk_models
+from pypfopt import BlackLittermanModel, plotting
+
+from pypfopt import EfficientFrontier, objective_functions
+
+import pickle 
+
+from google.cloud import storage
+import os
+
 # Define constants
-today = date.today()
+def step3_news_feed():    
+    stock_list = tickers_pull
+    tokenizer = AutoTokenizer.from_pretrained("ProsusAI/finbert")
+    model_finbert = AutoModelForSequenceClassification.from_pretrained("ProsusAI/finbert")
+    # stock_list = ['XON']
+    sentiment_list =[]
+    # stock_list =  ['XOM']
+    # count=3
+    for stock in stock_list:
+        # ohlc = yf.download(tickers_pull, start="2018-11-13", end="2023-11-13")
+        # count = 0 ==> news_series = finnhub_client.company_news(stock, _from="2022-11-04", to="2023-10-20")
+        # count = 1 ==> news_series = finnhub_client.company_news(stock, _from="2022-11-04", to="2023-09-12")
+        # count = 2 ==> news_series = finnhub_client.company_news(stock, _from="2022-11-04", to="2023-07-25")
+        news_series = finnhub_client.company_news(stock, _from=yesterday, to=today)
+        if news_series == []:
+            print("stock news "+stock+" is empty")
+            sentiment_stock  = 0
+            # result_daily[stock] = np.select(conditions, sentiment_values)
+        else:
+            news_series_df = pd.DataFrame.from_dict(news_series)
+            result_date = []
+            result_news = []
+            for index, row in news_series_df.iterrows():
+                result_news.append(row['headline'])
+                result_date.append(convert_date(row['datetime']))
+            # print(result_news)
+            result_date
+            inputs = tokenizer(result_news, padding = True, truncation = True, return_tensors='pt')
+            outputs = model_finbert(**inputs)
+            predictions = torch.nn.functional.softmax(outputs.logits, dim=-1)
+            # print(predictions)
+            pred_arr = predictions.detach().cpu().numpy()
+            result_date_df = pd.DataFrame({'date' : result_date}, columns=['date'])
+            # print("this is result_date_df")
+            # print(result_date_df)
+            result_news_df = pd.DataFrame(data = pred_arr, columns = ["Positive", "Negative", "Neutral"])
+            # print("this is result_news_df")
+            # print(result_news_df)
+            result_combined = pd.concat([result_date_df, result_news_df], axis=1)
+            # print("result_combined")
+            # print(result_combined)
+            # print(type(result_combined))
+            # result_daily = result_combined.groupby('date')['Positive', 'Negative', 'Neutral'].mean()
+            # for daily use this
+            result_daily_nodate = result_combined.drop(columns=['date'])
+            result_daily = result_daily_nodate.mean()
+            print("this is result_daily")
+            result_daily
+            conditions = [(result_daily['Positive'] > result_daily['Negative']) & (result_daily['Positive'] > result_daily['Neutral']),
+            (result_daily['Negative'] > result_daily['Positive']) & (result_daily['Negative'] > result_daily['Neutral']),
+            (result_daily['Neutral'] > result_daily['Positive']) & (result_daily['Neutral'] > result_daily['Positive'])]
+            sentiment_values = [1, -1, 0]
+            result_daily[stock] = np.select(conditions, sentiment_values)
+            sentiment_stock  = np.ndarray.item(np.array([result_daily[stock]]))
+        sentiment_list.append(sentiment_stock)
+        print(stock)
+        print (sentiment_list)
+    sentiment_list_row =[sentiment_list]
+    sentiment_daily = pd.DataFrame(sentiment_list_row, columns=stock_list, index=['sentiment']*1)
+    print (sentiment_list)
+    sentiment_daily.to_csv('/home/edsharecourse/projdatabucket/sentiment_daily.csv', index=True)
 
 def step4_bl_weight():
     prices_BL = pd.read_csv('/home/edsharecourse/projdatabucket/prices.csv', index_col='Date')    
