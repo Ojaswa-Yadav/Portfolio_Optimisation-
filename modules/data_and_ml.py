@@ -1,3 +1,28 @@
+import numpy as np
+import pandas as pd
+
+from numpy.linalg import inv
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, OrdinalEncoder
+from sklearn.metrics import r2_score
+from sklearn.svm import LinearSVC, SVC
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+from sklearn.svm import LinearSVC
+from sklearn.model_selection import GridSearchCV
+
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score
+
+from sklearn.metrics import mean_squared_error
+
+
+from sklearn.model_selection import cross_val_score, GridSearchCV
+from sklearn.preprocessing import MinMaxScaler
+
+
 def step1_pull_stock_data():
     tickers = tickers_pull
     ohlc = yf.download(tickers, period="60mo") # 60 months
