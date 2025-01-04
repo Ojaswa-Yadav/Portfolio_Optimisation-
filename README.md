@@ -50,6 +50,19 @@ The pipeline generates the following reports:
 
 ---
 
+## Installation
+
+You can set up the Portfolio Optimization project by running these commands:
+
+```bash
+git clone https://github.com/Ojaswa-Yadav/Portfolio_Optimisation-.git
+cd Portfolio_Optimisation-
+pip install -r requirements.txt
+airflow db init
+airflow webserver
+airflow scheduler
+---
+
 ## **Project Structure**
 
 ```plaintext
@@ -67,18 +80,7 @@ project/
 └── .gitignore                                  # Ignored files for Git
 
 
-## **Setup Instructions**
 
-### **1. Clone the Repository**
-```bash
-git clone https://github.com/Ojaswa-Yadav/Portfolio_Optimisation-.git
-cd Portfolio_Optimisation-
 
-pip install -r requirements.txt
 
-airflow db init
-
-airflow webserver
-
-airflow scheduler
 
