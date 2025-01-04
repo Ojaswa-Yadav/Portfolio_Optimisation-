@@ -1,0 +1,68 @@
+# Python-related ignores
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Airflow-related ignores
+airflow.cfg
+airflow.db
+logs/
+dags/__pycache__/
+
+# Data and report files
+*.csv
+*.json
+*.xlsx
+*.db
+*.sqlite3
+*.parquet
+
+# Credential files
+*.key
+*.pem
+*.p12
+*.jks
+*.pfx
+*.crt
+*.cert
+*.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE-related ignores
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git-related ignores
+*.orig
+*.lock
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Airflow pickle files
+*.pickle
+
+# Logs and temporary files
+logs/
+*.log
+*.bak
+*.tmp
