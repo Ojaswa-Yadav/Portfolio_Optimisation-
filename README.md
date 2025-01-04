@@ -5,6 +5,8 @@ This project leverages **financial data**, **machine learning**, **sentiment ana
 
 The project integrates with **Apache Airflow** to automate the entire pipeline, making it suitable for daily execution. Reports are generated and stored locally or uploaded to **Google Cloud Storage** for easy access.
 
+Additionally, a **website interface** is available for users to view the portfolio in a user-friendly manner.
+
 ---
 
 ## **Key Features**
@@ -25,9 +27,10 @@ The project integrates with **Apache Airflow** to automate the entire pipeline, 
 ### **Automated Workflow**
 - Automates the entire process using **Apache Airflow**.
 
-### **Reporting**
-- Generates reports for portfolio weights, Sharpe ratios, and returns.
-- Uploads reports to **Google Cloud Storage** for easy access.
+### **Website Interface**
+- A dedicated website allows users to view and interact with the optimized portfolio results.
+- Users can visualize portfolio weights, returns, and other metrics in an intuitive layout.
+
 
 ---
 
